@@ -7,51 +7,57 @@ import StripeCheckoutButton from '../../components/stripe-button/stripe-button.c
 
 import { selectCartItems, selectCartTotal } from '../../redux/cart/cart.selectors.js'
 
-import './checkout.style.scss'
+import {
+    CheckoutPageContainer,
+    CheckoutHeader,
+    CheckoutHeaderBlock,
+    CheckoutTotal,
+    CheckoutTestWarning
+} from './checkout.styles'
 
 const CheckoutPage = ({ cartItems, cartTotal }) => (
-    <div className='checkout-page'>
-        <div className='checkout-header'>
-            <div className='header-block'>
+    <CheckoutPageContainer>
+        <CheckoutHeader>
+            <CheckoutHeaderBlock>
                 <span>Product</span>
-            </div>
-            <div className='header-block'>
+            </CheckoutHeaderBlock>
+            <CheckoutHeaderBlock>
                 <span>Description</span>
-            </div>
-            <div className='header-block'>
+            </CheckoutHeaderBlock>
+            <CheckoutHeaderBlock>
                 <span>Quantity</span>
-            </div>
-            <div className='header-block'>
+            </CheckoutHeaderBlock>
+            <CheckoutHeaderBlock>
                 <span>Price</span>
-            </div>
-            <div className='header-block'>
+            </CheckoutHeaderBlock>
+            <CheckoutHeaderBlock>
                 <span>Remove</span>
-            </div>
-        </div>
+            </CheckoutHeaderBlock>
+        </CheckoutHeader>
         {
             cartItems.length ? (
                 cartItems.map(cartItem => 
                     <CheckoutItem key={cartItem.id} cartItem={cartItem} />   
                 )
             ) : (
-                <span>No cart items you mug</span>
+                <span>No cart items</span>
             )
 
 
 
         }
 
-        <div className='total'>
+        <CheckoutTotal>
             <span>TOTAL: ${cartTotal}</span>
-            <div className='test-warning'>
+            <CheckoutTestWarning>
             * Please use the following test credit card for payments *
             <br />
             4242 4242 4242 4242 - Exp: 01/20 - CVV: 123
-            </div>
+            </CheckoutTestWarning>
 
             <StripeCheckoutButton price={cartTotal}/>
-        </div>
-    </div>
+        </CheckoutTotal>
+    </CheckoutPageContainer>
 )
 
 const mapStateToProps = createStructuredSelector({
